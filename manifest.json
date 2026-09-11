@@ -6,6 +6,8 @@
   "orientation": "any",
   "scope": "/",
   "short_name": "Tirumala",
-  "start_url": "/tirumala-invoice/",
-  "theme_color": "#ffffff"
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "tirumala-invoice",
+  "description": "Washing machine repair services and invoice app."
 }
