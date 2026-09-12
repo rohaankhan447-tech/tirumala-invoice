@@ -46,11 +46,12 @@ function updateItemNumbers() {
   rows.forEach((row, index) => {
     row.querySelector('.item-no').innerText = index + 1;
   });
+  
 }
-
 function sendWhatsApp() {
   let name = document.getElementById('custName').value || "Customer";
   let mobile = document.getElementById('custMobile').value;
+  let invDate = document.getElementById('invDate').value;
   let total = document.getElementById('grandTotal').innerText;
 
   if (!mobile) {
@@ -58,7 +59,29 @@ function sendWhatsApp() {
     return;
   }
 
-  let message = `Hello ${name},\nThank you for choosing Tirumala Washing Machine Repair Services.\n\nTotal Bill: ₹${total}\nDate: ${document.getElementById('invDate').value}`;
+  // Formatting items list for WhatsApp
+  let itemsList = "";
+  let rows = document.querySelectorAll('#itemsTable tr');
+  rows.forEach((row, index) => {
+    let desc = row.querySelector('.item-desc').value || "Service";
+    let price = row.querySelector('.item-price').value || "0";
+    itemsList += `${index + 1}. *${desc}*: ₹${price}\n`;
+  });
+
+  let message = `*TIRUMALA WASHING MACHINE REPAIR SERVICES*\n` +
+    `📍 Raniganj / Toli Chowki | 📞 8143226730\n` +
+    `----------------------------------------\n` +
+    `*INVOICE TO:* ${name}\n` +
+    `*DATE:* ${invDate}\n` +
+    `----------------------------------------\n` +
+    `*SERVICES PROVIDED:*\n${itemsList}` +
+    `----------------------------------------\n` +
+    `*GRAND TOTAL:* ₹${total}\n` +
+    `*STATUS:* Paid ✅\n` +
+    `----------------------------------------\n` +
+    `_Note: No guarantee, no warranty_\n\n` +
+    `Thank you for your business!`;
+
   let encodedMsg = encodeURIComponent(message);
   window.open(`https://wa.me/91${mobile}?text=${encodedMsg}`, '_blank');
 }
