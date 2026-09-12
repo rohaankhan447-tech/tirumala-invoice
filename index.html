@@ -5,69 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tirumala Washing Machine Repair Services</title>
   
-  <!-- PWA Manifest & Theme Integration -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e53e3e">
-
-  <!-- html2pdf.js Library for PDF Generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
     * {
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
       padding: 0;
     }
 
     body {
       background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      margin: 0;
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .invoice-card {
       background: #ffffff;
       width: 100%;
-      max-width: 600px;
-      border-radius: 0;
-      box-shadow: none;
-      overflow: hidden;
+      padding: 0;
     }
 
     /* Header */
     .header {
       background-color: #e53e3e;
       color: #ffffff;
-      padding: 16px 14px;
+      padding: 10px 8px;
       text-align: center;
     }
 
     .header h2 {
-      font-size: 16px;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      font-size: 14px;
+      margin-bottom: 2px;
       text-transform: uppercase;
     }
 
     .header p {
-      font-size: 11px;
-      line-height: 1.3;
+      font-size: 10px;
+      line-height: 1.2;
       opacity: 0.95;
     }
 
     /* Form Body */
     .form-body {
-      padding: 14px;
+      padding: 10px;
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
+      grid-template-columns: 1fr 1fr; /* Side-by-side to save vertical space */
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     .field-group {
@@ -75,20 +67,24 @@
       flex-direction: column;
     }
 
+    .field-group.full-width {
+      grid-column: span 2;
+    }
+
     .field-group label {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 700;
       color: #334155;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
       text-transform: uppercase;
     }
 
     .field-group input, 
     .field-group select {
-      padding: 12px;
+      padding: 8px;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 15px;
+      border-radius: 6px;
+      font-size: 13px;
       outline: none;
       background-color: #f8fafc;
       width: 100%;
@@ -103,51 +99,49 @@
     /* Products Section */
     .section-title {
       color: #e53e3e;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      margin: 16px 0 10px 0;
+      margin: 10px 0 6px 0;
       text-transform: uppercase;
     }
 
-    /* Table Container for Mobile Horizontal Scroll */
     .table-container {
       width: 100%;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
 
     table {
       width: 100%;
-      min-width: 320px;
       border-collapse: collapse;
     }
 
     th {
-      font-size: 11px;
+      font-size: 10px;
       color: #64748b;
       text-transform: uppercase;
-      padding: 8px 4px;
+      padding: 4px;
       text-align: left;
     }
 
     td {
-      padding: 6px 4px;
+      padding: 4px 2px;
     }
 
     .item-no {
       font-weight: bold;
       color: #e53e3e;
       text-align: center;
-      width: 25px;
+      width: 20px;
+      font-size: 12px;
     }
 
     input.table-input {
       width: 100%;
-      padding: 10px;
+      padding: 7px;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 14px;
+      border-radius: 4px;
+      font-size: 13px;
       background-color: #f8fafc;
     }
 
@@ -156,8 +150,8 @@
       color: #e53e3e;
       border: 1px solid #fbb6b6;
       border-radius: 50%;
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -168,17 +162,17 @@
     /* Controls & Actions */
     .btn-row {
       display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .btn {
       flex: 1;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       border: none;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       text-align: center;
     }
@@ -196,36 +190,35 @@
 
     .total-container {
       text-align: right;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 700;
       color: #1e293b;
-      margin-bottom: 12px;
-      padding: 8px 0;
-      border-top: 2px dashed #e2e8f0;
-      border-bottom: 2px dashed #e2e8f0;
+      margin-bottom: 8px;
+      padding: 6px 0;
+      border-top: 1px dashed #cbd5e1;
+      border-bottom: 1px dashed #cbd5e1;
     }
 
     .disclaimer {
       text-align: center;
-      font-size: 12px;
+      font-size: 10px;
       color: #64748b;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     .action-btn {
       width: 100%;
-      padding: 14px;
-      border-radius: 10px;
+      padding: 11px;
+      border-radius: 8px;
       border: none;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      gap: 6px;
     }
 
     .btn-whatsapp {
@@ -238,16 +231,7 @@
       color: #ffffff;
     }
 
-    /* Print / PDF Custom Settings */
     @media print {
-      body {
-        background: none;
-        padding: 0;
-      }
-      .invoice-card {
-        box-shadow: none;
-        max-width: 100%;
-      }
       .btn-row, .delete-btn, .action-btn, th:last-child, td:last-child {
         display: none !important;
       }
@@ -261,7 +245,6 @@
 <body>
 
 <div class="invoice-card" id="invoiceArea">
-  <!-- Header -->
   <div class="header">
     <h2>Tirumala Washing Machine Repair Services</h2>
     <p>Secunderabad | Raniganj | Toli Chowki | Shaikpet</p>
@@ -269,22 +252,14 @@
   </div>
 
   <div class="form-body">
-    <!-- Customer Details -->
     <div class="grid-2">
-      <div class="field-group">
+      <div class="field-group full-width">
         <label>Customer Name</label>
         <input type="text" id="custName" placeholder="Enter Name">
       </div>
       <div class="field-group">
         <label>Date</label>
         <input type="date" id="invDate">
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="field-group">
-        <label>Mobile Number</label>
-        <input type="tel" id="custMobile" placeholder="Enter Mobile Number">
       </div>
       <div class="field-group">
         <label>Payment Mode</label>
@@ -294,19 +269,22 @@
           <option value="Card">Card</option>
         </select>
       </div>
+      <div class="field-group full-width">
+        <label>Mobile Number</label>
+        <input type="tel" id="custMobile" placeholder="Enter Mobile Number">
+      </div>
     </div>
 
-    <!-- Products / Services -->
     <div class="section-title">⚙️ Products / Services</div>
 
     <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th style="width: 25px;">#</th>
+            <th style="width: 20px;">#</th>
             <th>Item Description</th>
-            <th style="width: 90px;">Price (₹)</th>
-            <th style="width: 40px; text-align: center;">Action</th>
+            <th style="width: 75px;">Price (₹)</th>
+            <th style="width: 35px; text-align: center;">Action</th>
           </tr>
         </thead>
         <tbody id="itemsTable">
@@ -316,7 +294,7 @@
             <td><input type="number" class="table-input item-price" value="0" oninput="calculateTotal()"></td>
             <td>
               <button class="delete-btn" onclick="deleteRow(this)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
               </button>
             </td>
           </tr>
@@ -337,7 +315,6 @@
       Note :- No guarantee, no warranty
     </div>
 
-    <!-- Bottom Actions -->
     <button class="action-btn btn-whatsapp" onclick="sendWhatsApp()">
       💬 SEND BILL VIA WHATSAPP
     </button>
@@ -348,7 +325,6 @@
 </div>
 
 <script>
-  // Set default date
   document.getElementById('invDate').valueAsDate = new Date();
 
   function calculateTotal() {
@@ -372,7 +348,7 @@
       <td><input type="number" class="table-input item-price" value="0" oninput="calculateTotal()"></td>
       <td>
         <button class="delete-btn" onclick="deleteRow(this)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         </button>
       </td>
     `;
@@ -393,7 +369,6 @@
     });
   }
 
-  // PDF Generation Function using html2pdf.js
   function downloadPDF() {
     const element = document.getElementById('invoiceArea');
     const custName = document.getElementById('custName').value || 'Customer';
@@ -445,14 +420,9 @@
     window.open(`https://wa.me/91${mobile}?text=${encodedMsg}`, '_blank');
   }
 
-  // Service Worker Registration for PWA / PWABuilder
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js').then(function(registration) {
-        console.log('ServiceWorker registered successfully');
-      }, function(err) {
-        console.log('ServiceWorker registration failed: ', err);
-      });
+      navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
     });
   }
 </script>
