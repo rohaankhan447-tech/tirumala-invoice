@@ -9,6 +9,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e53e3e">
 
+  <!-- html2pdf.js Library for PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -21,15 +24,17 @@
       background-color: #f4f6f9;
       display: flex;
       justify-content: center;
-      padding: 10px;
+      padding: 0;
+      margin: 0;
     }
 
     .invoice-card {
       background: #ffffff;
       width: 100%;
       max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
       overflow: hidden;
     }
 
@@ -37,44 +42,33 @@
     .header {
       background-color: #e53e3e;
       color: #ffffff;
-      padding: 16px;
+      padding: 18px 14px;
       text-align: center;
     }
 
     .header h2 {
-      font-size: 16px;
+      font-size: 17px;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
       text-transform: uppercase;
     }
 
     .header p {
-      font-size: 11px;
-      line-height: 1.3;
+      font-size: 12px;
+      line-height: 1.4;
       opacity: 0.95;
     }
 
     /* Form Body */
     .form-body {
-      padding: 16px;
+      padding: 14px;
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr; /* Default stacked for mobile view */
       gap: 12px;
       margin-bottom: 12px;
-    }
-
-    /* Android Mobile View Adjustment */
-    @media (max-width: 480px) {
-      body {
-        padding: 5px;
-      }
-      .grid-2 {
-        grid-template-columns: 1fr; /* Form fields stacked vertically */
-        gap: 10px;
-      }
     }
 
     .field-group {
@@ -83,19 +77,19 @@
     }
 
     .field-group label {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      color: #4a5568;
-      margin-bottom: 4px;
+      color: #334155;
+      margin-bottom: 5px;
       text-transform: uppercase;
     }
 
     .field-group input, 
     .field-group select {
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 15px;
       outline: none;
       background-color: #f8fafc;
       width: 100%;
@@ -110,9 +104,9 @@
     /* Products Section */
     .section-title {
       color: #e53e3e;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      margin: 16px 0 10px 0;
+      margin: 18px 0 10px 0;
       text-transform: uppercase;
     }
 
@@ -132,7 +126,7 @@
 
     th {
       font-size: 11px;
-      color: #718096;
+      color: #64748b;
       text-transform: uppercase;
       padding: 8px 4px;
       text-align: left;
@@ -146,15 +140,15 @@
       font-weight: bold;
       color: #e53e3e;
       text-align: center;
-      width: 24px;
+      width: 25px;
     }
 
     input.table-input {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 14px;
       background-color: #f8fafc;
     }
 
@@ -163,8 +157,8 @@
       color: #e53e3e;
       border: 1px solid #fbb6b6;
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -182,10 +176,10 @@
     .btn {
       flex: 1;
       padding: 12px;
-      border-radius: 20px;
+      border-radius: 8px;
       border: none;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       text-align: center;
     }
@@ -203,32 +197,36 @@
 
     .total-container {
       text-align: right;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      color: #2d3748;
-      margin-bottom: 12px;
+      color: #1e293b;
+      margin-bottom: 15px;
+      padding: 10px 0;
+      border-top: 2px dashed #e2e8f0;
+      border-bottom: 2px dashed #e2e8f0;
     }
 
     .disclaimer {
       text-align: center;
-      font-size: 11px;
-      color: #718096;
+      font-size: 12px;
+      color: #64748b;
       margin-bottom: 20px;
     }
 
     .action-btn {
       width: 100%;
-      padding: 14px;
-      border-radius: 25px;
+      padding: 15px;
+      border-radius: 10px;
       border: none;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
     .btn-whatsapp {
@@ -237,11 +235,11 @@
     }
 
     .btn-print {
-      background-color: #1a202c;
+      background-color: #1e293b;
       color: #ffffff;
     }
 
-    /* Print Custom Settings */
+    /* Print / PDF Custom Settings */
     @media print {
       body {
         background: none;
@@ -250,6 +248,7 @@
       .invoice-card {
         box-shadow: none;
         max-width: 100%;
+        min-height: auto;
       }
       .btn-row, .delete-btn, .action-btn, th:last-child, td:last-child {
         display: none !important;
@@ -263,7 +262,7 @@
 </head>
 <body>
 
-<div class="invoice-card">
+<div class="invoice-card" id="invoiceArea">
   <!-- Header -->
   <div class="header">
     <h2>Tirumala Washing Machine Repair Services</h2>
@@ -344,7 +343,7 @@
     <button class="action-btn btn-whatsapp" onclick="sendWhatsApp()">
       💬 SEND BILL VIA WHATSAPP
     </button>
-    <button class="action-btn btn-print" onclick="window.print()">
+    <button class="action-btn btn-print" onclick="downloadPDF()">
       🖨️ PRINT / SAVE PDF
     </button>
   </div>
@@ -375,7 +374,7 @@
       <td><input type="number" class="table-input item-price" value="0" oninput="calculateTotal()"></td>
       <td>
         <button class="delete-btn" onclick="deleteRow(this)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2v2"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         </button>
       </td>
     `;
@@ -396,9 +395,25 @@
     });
   }
 
+  // PDF Generation Function using html2pdf.js
+  function downloadPDF() {
+    const element = document.getElementById('invoiceArea');
+    const custName = document.getElementById('custName').value || 'Customer';
+    const opt = {
+      margin:       0.2,
+      filename:     `Tirumala_Invoice_${custName.replace(/\s+/g, '_')}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+
   function sendWhatsApp() {
     let name = document.getElementById('custName').value || "Customer";
     let mobile = document.getElementById('custMobile').value;
+    let payMode = document.getElementById('payMode').value;
+    let date = document.getElementById('invDate').value;
     let total = document.getElementById('grandTotal').innerText;
 
     if (!mobile) {
@@ -406,7 +421,28 @@
       return;
     }
 
-    let message = `Hello ${name},\nThank you for choosing Tirumala Washing Machine Repair Services.\n\nTotal Bill: ₹${total}\nDate: ${document.getElementById('invDate').value}`;
+    let itemsList = "";
+    let rows = document.querySelectorAll('#itemsTable tr');
+    rows.forEach((row, index) => {
+      let desc = row.querySelector('.item-desc').value || "Service";
+      let price = row.querySelector('.item-price').value || "0";
+      itemsList += `${index + 1}. ${desc}: ₹${price}\n`;
+    });
+
+    let message = `*TIRUMALA WASHING MACHINE REPAIR SERVICES*\n` +
+      `📞 +91 8143226730\n` +
+      `----------------------------------------\n` +
+      `*INVOICE TO:* ${name}\n` +
+      `*DATE:* ${date}\n` +
+      `*PAYMENT MODE:* ${payMode}\n` +
+      `----------------------------------------\n` +
+      `*SERVICES:*\n${itemsList}` +
+      `----------------------------------------\n` +
+      `*GRAND TOTAL:* ₹${total}\n` +
+      `----------------------------------------\n` +
+      `_Note: No guarantee, no warranty_\n\n` +
+      `Thank you for your business!`;
+
     let encodedMsg = encodeURIComponent(message);
     window.open(`https://wa.me/91${mobile}?text=${encodedMsg}`, '_blank');
   }
